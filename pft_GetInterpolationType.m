@@ -32,7 +32,7 @@ uQuarterMMPixels = uicontrol('Style', 'Radio', 'String', 'Imresize - 0.25 mm pix
 set(hButtonGroup, 'SelectionChangeFcn', @InterpolationSelectionCallBack);
 
 % Select and display an initial value
-set(hButtonGroup, 'SelectedObject', uCubicTimesFour); 
+set(hButtonGroup, 'SelectedObject', uQuarterMMPixels); 
 
 % Make the button group visible
 set(hButtonGroup, 'Visible', 'on'); 
