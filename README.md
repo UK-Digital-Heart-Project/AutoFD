@@ -30,14 +30,14 @@ Put the input data into a top-level folder with sub-folders for each subject con
 
 The labels are Background  = 0, Blood Pool  = 1, Myocardium  = 2, Other = 3 or 4.
 
-Run the script ```pft_FractalDimensionCalculationOnMultipleFolders```
+Run the script ```pft_UKBBParallelDriverScript```
 
-Dialogue boxes are used to confirm the following: 
+Only one input is required: a top-level folder, with subject folders within it, each containing the grayscale and segmentation source images. The following parameters have been hard-coded: 
 
   * Minimum blood pool pixel count (default = 38, optimised according to a balanced probability calculation comparing manual and automated workflows) and percentage of blood pool connected to myocardium (default = 50%). Refer to the [Processing Flowchart](https://github.com/UK-Digital-Heart-Project/AutoFD/blob/master/Processing%20Flowchart.pdf) for details.
-  * Keep or discard the end slices in the calculation of the summary statistics (the default is keep).
+  * Keep or discard the end slices in the calculation of the summary statistics (this is now set to keep).
   
 ## Outputs
-Outputs are written to a new sub-folder ```Automated FD Calculation Results```.  Each subject's folder will contain intermediate images (see figure) and box-counting.
+Outputs are written to a new sub-folder ```Automated FD Calculation Results - 0.25 mm pixels```.  Each subject's folder will contain intermediate images (see figure) and box-counting results.
 
-Fractal dimension values are output to ```Summary-Auto-FD-v0.csv```. If you run the script more than once, new results will be appended.
+Fractal dimension values are output to several files called ```Summary-Auto-FD-v0-N.csv```, where N is an integer >= 1. These files contain all the FD results between them, and need to been combined manually once the FD processing is complete. If you run the script more than once, new results will be appended to the CSV files, but the audit images will be overwritten; for that reason, it is best to move these files (as well as the o/p summary folder) if you intend to execute the script more than once.
