@@ -35,11 +35,11 @@ OriginalResolution = 0.0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Load the end-diastole image stack - o/p variables will be empty on failure
-if (exist(fullfile(Folder, 'sa_crop_ED.nii.gz'), 'file') ~= 2)
+if (exist(fullfile(Folder, 'sa_ED.nii.gz'), 'file') ~= 2)
   return;
 end
 
-X = load_nii(fullfile(Folder, 'sa_crop_ED.nii.gz'));
+X = load_nii(fullfile(Folder, 'sa_ED.nii.gz'));
 A = X.img;
 
 % Convert A to int16 format if necessary - we know that this works
@@ -62,20 +62,20 @@ M  = int32(M);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Load the end-diastole segmentation stack - o/p variables will be empty on failure
-if (exist(fullfile(Folder, 'seg_sa_crop_ED.nii.gz'), 'file') ~= 2)
-  if (exist(fullfile(Folder, 'seg_sa_crop_ED.gipl'), 'file') ~= 2)  
+if (exist(fullfile(Folder, 'seg_sa_ED.nii.gz'), 'file') ~= 2)
+  if (exist(fullfile(Folder, 'seg_sa_ED.gipl'), 'file') ~= 2)  
     return;
   else
     if ispc
       a = fullfile('Windows', 'convert');
-      b = fullfile(Folder, 'seg_sa_crop_ED.gipl');
-      c = fullfile(Folder, 'seg_sa_crop_ED.nii.gz');
+      b = fullfile(Folder, 'seg_sa_ED.gipl');
+      c = fullfile(Folder, 'seg_sa_ED.nii.gz');
       
       Cmd = sprintf('%s "%s" "%s" 1>nul 2>nul', a, b, c);
     elseif isunix
       a = fullfile('Linux', 'convert');
-      b = fullfile(Folder, 'seg_sa_crop_ED.gipl');
-      c = fullfile(Folder, 'seg_sa_crop_ED.nii.gz');
+      b = fullfile(Folder, 'seg_sa_ED.gipl');
+      c = fullfile(Folder, 'seg_sa_ED.nii.gz');
             
       Cmd = sprintf('%s "%s" "%s" > /dev/null', a, b, c);
     end
@@ -88,12 +88,12 @@ FileExists = false;
 
 while (FileExists == false)
   pause(0.5);
-  if (exist(fullfile(Folder, 'seg_sa_crop_ED.nii.gz'), 'file') == 2)
+  if (exist(fullfile(Folder, 'seg_sa_ED.nii.gz'), 'file') == 2)
     FileExists = true;
   end;  
 end
 
-Y = load_nii(fullfile(Folder, 'seg_sa_crop_ED.nii.gz'));
+Y = load_nii(fullfile(Folder, 'seg_sa_ED.nii.gz'));
 B = Y.img;
 
 % Convert B to int16 format if necessary - we know that this works
