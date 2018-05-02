@@ -13,7 +13,7 @@ fclose('all');
 if ispc
   Username = getenv('Username');
   Home = fullfile('C:', 'Users', Username, 'Desktop');
-elseif isunix
+elseif isunix || ismac
   [ Status, CmdOut ] = system('whoami');
   Home = fullfile('home', CmdOut, 'Desktop');
 end  

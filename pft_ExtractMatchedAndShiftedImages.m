@@ -72,7 +72,7 @@ if (exist(fullfile(Folder, 'seg_sa_ED.nii.gz'), 'file') ~= 2)
       c = fullfile(Folder, 'seg_sa_ED.nii.gz');
       
       Cmd = sprintf('%s "%s" "%s" 1>nul 2>nul', a, b, c);
-    elseif isunix
+    elseif isunix || ismac
       a = fullfile('Linux', 'convert');
       b = fullfile(Folder, 'seg_sa_ED.gipl');
       c = fullfile(Folder, 'seg_sa_ED.nii.gz');
