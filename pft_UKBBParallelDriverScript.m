@@ -59,7 +59,10 @@ NFOLDERS = uint32(size(SubFolders, 1));
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Create the common "auditing" o/p folder
+% Select the type of interpolation - this also happens in the worker thread function
+% InterpolationType = pft_GetInterpolationType;
+InterpolationType = 'Imresize - 0.25 mm pixels - cubic';
+
 switch InterpolationType    
   case 'Imresize - (x4 x4) - cubic'
     if (exist(fullfile(TopLevelFolder, 'Automated FD Calculation Results - x4'), 'dir') ~= 7)
