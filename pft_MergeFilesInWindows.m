@@ -19,8 +19,6 @@ Cmd = [ a b c ];
 
 system(Cmd);
 
-disp(Cmd);
-
 % Return to the Home directory
 cd(Home);
 
