@@ -17,8 +17,6 @@ c = '> Summary-Auto-FD-v0.csv 2>/dev/null';
 
 Cmd = [ a b c ];
 
-disp(Cmd);
-
 system(Cmd);
 
 % Return to the Home directory
