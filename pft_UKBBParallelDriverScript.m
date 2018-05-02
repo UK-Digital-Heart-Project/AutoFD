@@ -59,6 +59,20 @@ NFOLDERS = uint32(size(SubFolders, 1));
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Create the common "auditing" o/p folder
+switch InterpolationType    
+  case 'Imresize - (x4 x4) - cubic'
+    if (exist(fullfile(TopLevelFolder, 'Automated FD Calculation Results - x4'), 'dir') ~= 7)
+      mkdir(TopLevelFolder, 'Automated FD Calculation Results - x4');
+    end
+  case 'Imresize - 0.25 mm pixels - cubic'
+    if (exist(fullfile(TopLevelFolder, 'Automated FD Calculation Results - 0.25 mm pixels'), 'dir') ~= 7)
+      mkdir(TopLevelFolder, 'Automated FD Calculation Results - 0.25 mm pixels');
+    end
+end   
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Write out an XL file which contains just the header
 HeaderFile = fullfile(TopLevelFolder, 'Header.csv');
 

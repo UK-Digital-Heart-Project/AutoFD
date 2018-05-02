@@ -64,17 +64,6 @@ FDMeasureFailed  =  0.0;    % Signal that an attempt was made, but failed - this
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Process all the suitable folders
-switch InterpolationType    
-  case 'Imresize - (x4 x4) - cubic'
-    if (exist(fullfile(TopLevelFolder, 'Automated FD Calculation Results - x4'), 'dir') ~= 7)
-      mkdir(TopLevelFolder, 'Automated FD Calculation Results - x4');
-    end
-  case 'Imresize - 0.25 mm pixels - cubic'
-    if (exist(fullfile(TopLevelFolder, 'Automated FD Calculation Results - 0.25 mm pixels'), 'dir') ~= 7)
-      mkdir(TopLevelFolder, 'Automated FD Calculation Results - 0.25 mm pixels');
-    end
-end   
-
 for n = 1:NDIRS
     
   switch InterpolationType    
