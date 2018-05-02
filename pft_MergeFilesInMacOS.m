@@ -11,7 +11,7 @@ Entries = Entries(~Folders);
 Entries = sort(Entries); 
 
 % Create and run a merge command
-a = 'cat ';
+a = 'cat Header.csv ';
 b = sprintf('%s ', Entries{:});
 c = '> Summary-Auto-FD-v0-1.csv 2>/dev/null';
 
