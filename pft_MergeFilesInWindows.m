@@ -13,7 +13,7 @@ Entries = sort(Entries);
 % Create and run a merge command
 a = 'type Header.csv ';
 b = sprintf('%s ', Entries{:});
-c = '> Summary-Auto-FD-v0-1.csv 2>nul';
+c = '> Summary-Auto-FD-v0.csv 2>nul';
 
 Cmd = [ a b c ];
 
