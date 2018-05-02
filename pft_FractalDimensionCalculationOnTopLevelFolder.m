@@ -45,32 +45,13 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Select the output Excel sheet and back it up straightaway
-SummaryFile       = fullfile(TopLevelFolder, sprintf('Summary-Auto-FD-v0-%1d.csv', BatchNumber));
-SummaryBackupFile = fullfile(TopLevelFolder, sprintf('Summary-Auto-FD-v0-%1d-Backup.csv', BatchNumber));
+% Select the output Excel sheet, and back it up straightaway if it already exists from a previous run
+SummaryFile       = fullfile(TopLevelFolder, sprintf('Data-%1d.csv', BatchNumber));
+SummaryBackupFile = fullfile(TopLevelFolder, sprintf('Backup-%1d.csv', BatchNumber));
 
-if (exist(SummaryFile, 'file') ~= 2)
-  Head = [ 'Folder,', ...
-           'Slice order in segmentation,', 'Interpolation,', 'Default perimeter drawn,', ...
-           'BP threshold (pixels),', 'Connection threshold (per cent),', ...
-           'Original resolution / mm,', 'Output resolution / mm,', ...
-           'Slices present,', ...
-           'FD - Slice 1,', 'Slice 2,', 'Slice 3,', 'Slice 4,', 'Slice 5,', ...
-           'Slice 6,', 'Slice 7,', 'Slice 8,', 'Slice 9,', 'Slice 10,', ...
-           'Slice 11,', 'Slice 12,', 'Slice 13,', 'Slice 14,', 'Slice 15,', ...
-           'Slice 16,', 'Slice 17,', 'Slice 18,', 'Slice 19,', 'Slice 20,', ...
-           'End slices discarded for statistics,', ...
-           'Slices evaluated,', 'Slices used,', ...
-           'Mean global FD,', ...
-           'Mean basal FD,', 'Mean apical FD,', ...
-           'Max. basal FD,', 'Max. apical FD' ];     
-                 
-  fid = fopen(SummaryFile, 'at');
-  fprintf(fid, '%s\n', Head);
-  fclose(fid);
+if (exist(SummaryFile, 'file') == 2)
+  copyfile(SummaryFile, SummaryBackupFile);
 end
-
-copyfile(SummaryFile, SummaryBackupFile);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -93,10 +74,6 @@ switch InterpolationType
       mkdir(TopLevelFolder, 'Automated FD Calculation Results - 0.25 mm pixels');
     end
 end   
-
-% h1 = waitbar(0, sprintf('Processed 0 of %1d folders', NDIRS), 'Units', 'normalized', 'Position', [0.225 0.45 0.2 0.1]);
-
-% set(h1, 'Name', 'Progress - folders');
 
 for n = 1:NDIRS
     
@@ -128,8 +105,7 @@ for n = 1:NDIRS
     Data = sprintf('%s, %s %s', SubFolders{n}, repmat('  ,', [1, 35]), '  ');
     fid = fopen(SummaryFile, 'at');
     fprintf(fid, '%s\n', Data);
-    fclose(fid);
-    % waitbar(n/NDIRS, h1, sprintf('Processed %1d of %1d folders', n, NDIRS));
+    fclose(fid);    
     continue;
   end
 
@@ -141,10 +117,6 @@ for n = 1:NDIRS
     case 'Imresize - 0.25 mm pixels - cubic'
       OutputResolution = 0.25;
   end
-  
-  % h2 = waitbar(0, sprintf('Processed 0 of %1d slices', NP), 'Units', 'normalized', 'Position', [0.525 0.45 0.2 0.1]);
-  
-  % set(h2, 'Name', 'Progress - slices');
   
   FD = NaN(1, 20);
   FractalDimensions = repmat({ 'NaN' }, [1, 20]);
@@ -214,19 +186,9 @@ for n = 1:NDIRS
           pft_WriteBlankOutputImages(p, TargetFolder, 'FD measure failed');
         end       
  
-    end
-       
-    % waitbar(p/NP, h2, sprintf('Processed %1d of %1d slices', p, NP));
-  
+    end       
+     
   end
-  
-  % waitbar(1, h2, sprintf('Processed %1d of %1d slices', NP, NP));
-  
-  % pause(0.1);
-  
-  % close(h2);
-  
-  % waitbar(n/NDIRS, h1, sprintf('Processed %1d of %1d folders', n, NDIRS));  
   
   % Extract and process the FD values for the current stack, trimmed to the number of slices present
   StackFD = FD(1:NP);
@@ -283,17 +245,10 @@ for n = 1:NDIRS
             
 end
 
-% waitbar(1, h1, sprintf('Processed %1d of %1d folders', NDIRS, NDIRS));
-
-% pause(0.1);
-  
-% close(h1);
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Home, James !
-% msgbox('Done !', 'Quit');
-  fprintf('One thread completed.\n');
+% Signal completion of a single thread
+fprintf('Thread number %1d completed.\n', BatchNumber);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

@@ -4,7 +4,7 @@ function pft_MergeFilesInMacOS(Home, Away)
 cd(Away);
 
 % List all the local CSV files
-Listing = dir('Data*.csv');
+Listing = dir('Data-*.csv');
 Entries = { Listing.name };
 Folders = [ Listing.isdir ];
 Entries = Entries(~Folders);
