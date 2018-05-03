@@ -46,8 +46,10 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Select the output Excel sheet, and back it up straightaway if it already exists from a previous run
-SummaryFile       = fullfile(TopLevelFolder, sprintf('Data-%1d.csv', BatchNumber));
-SummaryBackupFile = fullfile(TopLevelFolder, sprintf('Backup-%1d.csv', BatchNumber));
+Suffix = pft_NumberedSuffix(4, BatchNumber);
+
+SummaryFile       = fullfile(TopLevelFolder, sprintf('Data-%s.csv', Suffix));
+SummaryBackupFile = fullfile(TopLevelFolder, sprintf('Backup-%s.csv', Suffix));
 
 if (exist(SummaryFile, 'file') == 2)
   copyfile(SummaryFile, SummaryBackupFile);

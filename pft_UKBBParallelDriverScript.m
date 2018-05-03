@@ -105,12 +105,18 @@ end
 % Process the sub-folders in batches, distributed between the multiple threads
 NCORES = uint32(feature('numcores'));
 
-if (NFOLDERS < NCORES)
+if (NFOLDERS == 1)
+  tic;
+  pft_FractalDimensionCalculationOnTopLevelFolder(TopLevelFolder, SubFolders(1), 1);
+  toc;
+elseif (NFOLDERS <= NCORES)
+  ParPool = parpool('local', NFOLDERS);
   tic;
   parfor n = 1:NFOLDERS
     pft_FractalDimensionCalculationOnTopLevelFolder(TopLevelFolder, SubFolders(n), n);
   end
   toc;
+  delete(ParPool);
 else  
   BATCH = idivide(NFOLDERS, NCORES);
   
@@ -136,11 +142,13 @@ else
     SF{n} = SubFolders(Lower(n):Upper(n));
   end
   
+  ParPool = parpool('local', NCORES);
   tic;
   parfor n = 1:NCORES 
     pft_FractalDimensionCalculationOnTopLevelFolder(TopLevelFolder, SF{n}, n);
   end
   toc;
+  delete(ParPool);
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
