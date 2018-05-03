@@ -39,7 +39,7 @@ if (exist(fullfile(Folder, 'sa_ED.nii.gz'), 'file') ~= 2)
   return;
 end
 
-X = load_nii(fullfile(Folder, 'sa_ED.nii.gz'));
+X = load_untouch_nii(fullfile(Folder, 'sa_ED.nii.gz')); % Replaces: X = load_untouch_nii(fullfile(Folder, 'sa_ED.nii.gz')); 03-05-2018
 A = X.img;
 
 % Convert A to int16 format if necessary - we know that this works
@@ -93,7 +93,7 @@ while (FileExists == false)
   end;  
 end
 
-Y = load_nii(fullfile(Folder, 'seg_sa_ED.nii.gz'));
+Y = load_untouch_nii(fullfile(Folder, 'seg_sa_ED.nii.gz')); % Replaces: Y = load_untouch_nii(fullfile(Folder, 'seg_sa_ED.nii.gz')); 03-05-2018
 B = Y.img;
 
 % Convert B to int16 format if necessary - we know that this works
