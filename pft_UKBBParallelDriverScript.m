@@ -118,24 +118,15 @@ elseif (NFOLDERS <= NCORES)
   toc;
   delete(ParPool);
 else  
-  BATCH = idivide(NFOLDERS, NCORES);
+  Q = idivide(NFOLDERS, NCORES);
+  R = mod(NFOLDERS, NCORES);
   
-  Lower = zeros([NCORES, 1], 'uint32');
-  Upper = zeros([NCORES, 1], 'uint32');
+  Count = repmat(uint32(Q), [NCORES, 1]);  
+  Count(1:R) = Count(1:R) + 1;
   
-  a = 1;
-  b = BATCH;
+  Upper = cumsum(Count);
+  Lower = Upper - Count + 1;
   
-  for n = 1:NCORES-1
-    Lower(n) = a;
-    a = a + BATCH;
-    Upper(n) = b;
-    b = b + BATCH;
-  end
-  
-  Lower(NCORES) = a;
-  Upper(NCORES) = NFOLDERS;    
-    
   SF = cell(NCORES, 1);
   
   for n = 1:NCORES
