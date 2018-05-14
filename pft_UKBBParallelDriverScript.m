@@ -121,8 +121,11 @@ else
   Q = idivide(NFOLDERS, NCORES);
   R = mod(NFOLDERS, NCORES);
   
-  Count = repmat(uint32(Q), [NCORES, 1]);  
-  Count(1:R) = Count(1:R) + 1;
+  Count = repmat(uint32(Q), [NCORES, 1]); 
+  
+  if (R > 0)
+    Count(1:R) = Count(1:R) + 1;
+  end
   
   Upper = cumsum(Count);
   Lower = Upper - Count + 1;
