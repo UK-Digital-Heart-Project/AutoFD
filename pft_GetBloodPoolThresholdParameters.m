@@ -1,14 +1,19 @@
-function N = pft_GetNumberOfQueens
+function [ MinimumPixelCount, ConnectedPercentage ] = pft_GetBloodPoolThresholdParameters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% pft_BloodPoolThresholdParameters                                                                      %
+%                                                                                                       %
+% Input limits to test for a scanty blood pool, or one which is poorly connected to the myocardium.     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Options.Resize = 'off';
 Options.WindowStyle = 'modal';
 Options.Interpreter = 'tex';
 
-Prompt = { 'Number of Queens: ' };
+Prompt = { 'Blood pool pixel count threshold: ', 'Minimum connected percentage: ' };
 
-Starts = { '4' };  
+Starts = { '38', '50.0' };  % 60-65 (64) pixels is best for Genscan, 38 for Biobank
 
-Layout = zeros(1, 2, 'int16');
+Layout = zeros(2, 2, 'int16');
 Layout(:, 1) = 1;
 Layout(:, 2) = 60;
 
