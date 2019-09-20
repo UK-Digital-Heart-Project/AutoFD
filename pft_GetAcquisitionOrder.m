@@ -1,7 +1,7 @@
 function AcquisitionOrder = pft_GetAcquisitionOrder
 
 % Initialize outputs for possible immediate (default) return
-AcquisitionOrder = 'Base to Apex';  
+AcquisitionOrder = 'Apex to Base';  
 
 % Dimension the dialog box for the screen
 x0 = 0.375;

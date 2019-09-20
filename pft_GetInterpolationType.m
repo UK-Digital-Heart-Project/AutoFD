@@ -1,7 +1,7 @@
 function Interpolation = pft_GetInterpolationType
 
 % Initialize outputs for possible immediate (default) return
-Interpolation = 'Imresize - 0.25 mm pixels - cubic';  
+Interpolation = 'Imresize - (x4 x4) - cubic';  
 
 % Dimension the dialog box for the screen
 x0 = 0.375;
