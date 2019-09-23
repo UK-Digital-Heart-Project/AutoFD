@@ -72,7 +72,7 @@ NDIRS = length(Entries);
 
 % Fetch the acquisition slice order (as implemented in the segmentation files)
   AcquisitionOrder = pft_GetAcquisitionOrder;
-% AcquisitionOrder = 'Base to Apex';
+% AcquisitionOrder = 'Apex to Base';
 
 % Select the type of interpolation
   InterpolationType = pft_GetInterpolationType;
