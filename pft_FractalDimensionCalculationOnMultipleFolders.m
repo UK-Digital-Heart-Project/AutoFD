@@ -21,9 +21,12 @@ fclose('all');
 if ispc
   Username = getenv('Username');
   Home = fullfile('C:', 'Users', Username, 'Desktop');
-elseif isunix
+elseif isunix 
   [ Status, CmdOut ] = system('whoami');
   Home = fullfile('home', CmdOut, 'Desktop');
+elseif ismac
+  [ Status, CmdOut ] = system('whoami');
+  Home = fullfile('Users', CmdOut, 'Desktop');
 end  
   
 TopLevelFolder = uigetdir(Home, 'Select a top-level folder with data folders inside');
