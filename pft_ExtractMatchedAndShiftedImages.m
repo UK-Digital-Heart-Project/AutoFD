@@ -90,7 +90,7 @@ while (FileExists == false)
   pause(0.5);
   if (exist(fullfile(Folder, 'seg_sa_ED.nii.gz'), 'file') == 2)
     FileExists = true;
-  end;  
+  end 
 end
 
 Y = load_nii(fullfile(Folder, 'seg_sa_ED.nii.gz'));
