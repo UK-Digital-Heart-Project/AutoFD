@@ -8,7 +8,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Clear the workspace as usual
+%% Clear the workspace as usual
+
 clear all
 close all
 clc
@@ -17,7 +18,8 @@ fclose('all');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Locate a batch folder
+%% Locate a batch folder
+
 if ispc
   Username = getenv('Username');
   Home = fullfile('C:', 'Users', Username, 'Desktop');
@@ -70,25 +72,22 @@ NDIRS = length(Entries);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%% Set the basic processing parameters
+
 % Fetch the acquisition slice order (as implemented in the segmentation files)
-  AcquisitionOrder = pft_GetAcquisitionOrder;
-% AcquisitionOrder = 'Apex to Base';
+AcquisitionOrder = pft_GetAcquisitionOrder;
 
 % Select the type of interpolation
-  InterpolationType = pft_GetInterpolationType;
-% InterpolationType = 'Imresize - 0.25 mm pixels - cubic';
+InterpolationType = pft_GetInterpolationType;
 
 % Set the default perimeter type - there is no choice here, and if the default cannot be created, then the brute-force Ansatz is applied
-  PerimeterType = 'Out from blood pool';
+PerimeterType = 'Out from blood pool';
 
 % Fetch the blood pool threshold parameters - 60-65 (64) pixels is optimum for Genscan, 38 for UKBB, according to TJWD's balanced/maximum probability study
-  [ MinimumPixelCount, ConnectedPercentage ] = pft_GetBloodPoolThresholdParameters;
-% MinimumPixelCount = 38;
-% ConnectedPercentage = 50.0;
+[ MinimumPixelCount, ConnectedPercentage ] = pft_GetBloodPoolThresholdParameters;
 
 % Ask whether to trim data for summary FD statistics
-  Ans = questdlg('Discard end slices for summary statistics ?', 'Processing decision', 'Yes', 'No', 'No');
-% Ans = 'No';
+Ans = questdlg('Discard end slices for summary statistics ?', 'Processing decision', 'Yes', 'No', 'No');
 
 switch Ans
   case { '', 'No' }
@@ -99,7 +98,8 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Select the output Excel sheet and back it up straightaway
+%% Select the output Excel sheet and back it up straightaway
+
 SummaryFile       = fullfile(TopLevelFolder, 'Summary-Auto-FD-v0.csv');
 SummaryBackupFile = fullfile(TopLevelFolder, 'Summary-Auto-FD-v0-Backup.csv');
 
@@ -128,7 +128,8 @@ copyfile(SummaryFile, SummaryBackupFile);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% These are signalling error conditions for the o/p CSV file
+%% These are signalling error conditions for the o/p CSV file
+
 MeagreBloodPool  = -111;
 SparseMyocardium = -222;
 NoROICreated     = -333;
@@ -136,7 +137,8 @@ FDMeasureFailed  =  0.0;    % Signal that an attempt was made, but failed - this
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Process all the suitable folders
+%% Process all the suitable folders
+
 switch InterpolationType    
   case 'Imresize - (x4 x4) - cubic'
     if (exist(fullfile(TopLevelFolder, 'Automated FD Calculation Results - x4'), 'dir') ~= 7)
@@ -345,9 +347,11 @@ close(h1);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Home, James !
-msgbox('Done !', 'Quit');
+%% Home, James !
 
+h = msgbox('Done !', 'Quit', 'modal');
+uiwait(h);
+delete(h);
 
 
 
