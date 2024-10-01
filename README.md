@@ -1,3 +1,6 @@
+# This repository is depreciated!
+Pease use [ImperialCollegeLondon/AutoFD](https://github.com/ImperialCollegeLondon/AutoFD) instead.
+
 # AutoFD
 Matlab script for automated fractal analysis of segmented cardiac images.
 
